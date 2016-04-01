@@ -1,24 +1,33 @@
 {
   "name": "pizza-guy",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0-semantically-released",
+  "description": "If you already have a big list of urls of files that you want to download but you don't know how, this is your module.",
+  "main": "src/index.js",
   "scripts": {
     "test": "istanbul cover -x *.test.js _mocha -- -R spec src/index.test.js",
     "test:watch": "mocha src/index.test.js -w",
     "commit": "git-cz",
+    "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/andresdavid90/pizza-guy.git"
   },
-  "author": "‘Andrés",
+  "keywords": [
+    "download",
+    "files",
+    "deliver",
+    "delivery"
+  ],
+  "author": "Andrés Carreño <andresdavid90@gmail.com> (http://andrescarreno.co)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/andresdavid90/pizza-guy/issues"
   },
   "homepage": "https://github.com/andresdavid90/pizza-guy#readme",
   "devDependencies": {
+    "codecov.io": "0.1.6",
     "commitizen": "2.7.4",
     "cz-conventional-changelog": "1.1.5",
     "expect": "1.16.0",
@@ -27,10 +36,10 @@
     "mocha": "2.4.5",
     "semantic-release": "^4.3.5"
   },
-  "czConfig": {
-    "path": "node_modules/cz-conventional-changelog"
-  },
   "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
     "ghooks": {
       "pre-commit": "npm run test"
     }
