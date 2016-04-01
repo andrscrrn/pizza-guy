@@ -1,31 +1,38 @@
 {
   "name": "pizza-guy",
-  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "istanbul cover -x *.test.js _mocha -- -R spec src/index.test.js",
     "test:watch": "mocha src/index.test.js -w",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/high-wire/pizza-guy.git"
+    "url": "https://github.com/andresdavid90/pizza-guy.git"
   },
   "author": "‘Andrés",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/high-wire/pizza-guy/issues"
+    "url": "https://github.com/andresdavid90/pizza-guy/issues"
   },
-  "homepage": "https://github.com/high-wire/pizza-guy#readme",
+  "homepage": "https://github.com/andresdavid90/pizza-guy#readme",
   "devDependencies": {
     "commitizen": "2.7.4",
     "cz-conventional-changelog": "1.1.5",
     "expect": "1.16.0",
+    "ghooks": "1.1.1",
     "istanbul": "0.4.2",
-    "mocha": "2.4.5"
+    "mocha": "2.4.5",
+    "semantic-release": "^4.3.5"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
   }
 }
