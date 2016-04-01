@@ -1,10 +1,10 @@
-var expect = require('expect');
-var pizzaGuy = require('./index.js');
+const expect = require('expect');
+const pizzaGuy = require('./index.js');
 
-describe('pizza-guy', function(){
+describe('pizza-guy', () => {
 
-  describe('something', function(){
-    it('and test something', function(){
+  describe('something', () => {
+    it('and test something', () => {
       expect('something truthy').toExist();
     });
   });
