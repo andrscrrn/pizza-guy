@@ -9,7 +9,7 @@
 
 If you already have a big list of urls of files that you want to download but you don't know how, this is your module.
 
-The idea is to support really big lists of files that would be insane to download by hand.
+The idea is to support really big lists of files that would be insane to download simultaneusly since Node would break for this kind of cases.
 
 ## How to use
 
@@ -18,18 +18,22 @@ const pizzaGuy = require('pizza-guy');
 
 const images = [
   'http://some.domain.com/file0.jpg',
-  'http://some.domain.com/file1.jpg',
-  'http://some.domain.com/file2.jpg',
-  'http://some.domain.com/file3.jpg',
-  'http://some.domain.com/file4.jpg'
+  'https://some.domain.com/file1.gif',
+  'https://some.domain.com/file2.png'
 ];
 
 pizzaGuy
   .deliver(images)
   .onAddress('./some-path')
+  .onSuccess((filename) => {
+    console.log(`${filename} succeed!`);
+  })
+  .onError((filename) => {
+    console.log(`${filename} failed`);
+  })
   .start();
 ```
 
-## NOT STABLE
+## STABLE!
 
-We just started with this and it is definitely not stable. For now use it at your own risk.
+Or that is what it seems to be. Please report an issue if you find out that this is not true.

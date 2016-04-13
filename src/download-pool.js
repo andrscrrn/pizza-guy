@@ -13,26 +13,30 @@ function sliceByLimit(arrayToSlice) {
   return slicedArray;
 }
 
-function batchDownload(arr) {
+function batchDownload(arr, successCb, errorCb) {
   let downloadIndex = 0;
   arr
     .shift()
     .forEach((file) => {
       downloadFile(file)
         .then((fileName) => {
+          successCb(fileName);
           if (++downloadIndex % POOL_LIMIT === 0) {
-            batchDownload(arr);
+            batchDownload(arr, successCb, errorCb);
           }
         })
-        .catch((error) => {
+        .catch((error, fileName) => {
+          errorCb(fileName);
           console.log(error);
         });
     }
   );
 }
 
-module.exports = function(list) {
+module.exports = function(list, successCb, errorCb) {
   batchDownload(
-    sliceByLimit(list)
+    sliceByLimit(list),
+    successCb,
+    errorCb
   );
 };

@@ -2,7 +2,7 @@
 
 function dataAdapter (data, savePath) {
 
-  return data.map((url) => {
+  return Array.from(new Set(data)).map((url) => {
 
     let host = `${url.split('.com')[0]}.com`;
     let path = url.split('.com')[1];

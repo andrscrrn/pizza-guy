@@ -47,7 +47,10 @@ function downloadFile(file) {
           ENCODING_TYPE,
           (err) => {
             if (err) {
-              reject(Error('There was a problem saving the file.'));
+              reject(
+                Error('There was a problem saving the file.'),
+                file.fileName
+              );
             }
             resolve(file.fileName);
           }
