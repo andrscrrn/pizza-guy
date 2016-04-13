@@ -26,7 +26,10 @@ function downloadFile(file) {
       http
         .get(config, writeImageOnDisk)
         .on('error', (err) => {
-          if (err) reject(err);
+          if (err) reject(
+            Error('There was a problem retrieving the file from the server.'),
+            file.fileName
+          );
         });
     }
 

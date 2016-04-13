@@ -4,16 +4,16 @@ const downloadFile = require('./download-file');
 
 const POOL_LIMIT = 6;
 
-function sliceByLimit(arrayToSlice) {
+function splice(arr, limit) {
   let slicedArray = [];
-  while(arrayToSlice.length) {
-    let temp = arrayToSlice.splice(0, POOL_LIMIT);
+  while(arr.length) {
+    let temp = arr.splice(0, limit);
     slicedArray.push(temp);
   }
   return slicedArray;
 }
 
-function batchDownload(arr, successCb, errorCb) {
+function batchDownload(arr, limit, successCb, errorCb) {
   let downloadIndex = 0;
   arr
     .shift()
@@ -21,8 +21,8 @@ function batchDownload(arr, successCb, errorCb) {
       downloadFile(file)
         .then((fileName) => {
           successCb(fileName);
-          if (++downloadIndex % POOL_LIMIT === 0) {
-            batchDownload(arr, successCb, errorCb);
+          if (++downloadIndex % limit === 0) {
+            batchDownload(arr, limit, successCb, errorCb);
           }
         })
         .catch((error, fileName) => {
@@ -33,9 +33,10 @@ function batchDownload(arr, successCb, errorCb) {
   );
 }
 
-module.exports = function(list, successCb, errorCb) {
+module.exports = (list, successCb, errorCb) => {
   batchDownload(
-    sliceByLimit(list),
+    splice(list, POOL_LIMIT),
+    POOL_LIMIT,
     successCb,
     errorCb
   );
