@@ -27,6 +27,7 @@ function batchDownload(arr, limit, successCb, errorCb) {
         })
         .catch((error, fileName) => {
           errorCb(fileName);
+          downloadIndex++;
           console.log(error);
         });
     }
