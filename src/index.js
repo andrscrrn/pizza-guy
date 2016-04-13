@@ -1,7 +1,7 @@
 'use strict';
 
 const dataAdapter = require('./data-adapter');
-const downloadFile = require('./download-file');
+const downloadPool = require('./download-pool');
 
 let filesList = null;
 let savePath = null;
@@ -20,16 +20,8 @@ function setDestinyFolder(path) {
 }
 
 function start () {
-  filesList
-    .forEach((file) => {
-      downloadFile(file)
-        .then((fileName)=>{
-          console.log(`${fileName} done.`);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+  downloadPool(
+    filesList
   );
 }
 
