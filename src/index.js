@@ -6,11 +6,16 @@ const downloadFile = require('./download-file');
 let filesList = null;
 let savePath = null;
 
-function setFilesList (list) {
+function setFilesList(list) {
   filesList = dataAdapter(
     list,
     savePath ? savePath : process.cwd()
   );
+  return this;
+}
+
+function setDestinyFolder(path) {
+  savePath = path;
   return this;
 }
 
@@ -26,11 +31,6 @@ function start () {
         });
     }
   );
-}
-
-function setDestinyFolder(path) {
-  savePath = path;
-  return this;
 }
 
 module.exports = {

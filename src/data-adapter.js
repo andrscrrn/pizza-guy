@@ -2,16 +2,16 @@
 
 function dataAdapter (data, savePath) {
 
-  const com = '.com';
-
   return data.map((url) => {
 
-    let host = `${url.split(com)[0]}.com`;
-    let path = url.split(com)[1];
+    let host = `${url.split('.com')[0]}.com`;
+    let path = url.split('.com')[1];
     let filename = `/${url.split('/')[url.split('/').length - 1]}`;
 
     let fileObject = {
-      host: host.replace('http://', ''),
+      host: url.indexOf('http://') !== -1
+        ? host.replace('http://', '')
+        : host.replace('https://', ''),
       path: path,
       fileName: `${savePath}${filename}`
     };
