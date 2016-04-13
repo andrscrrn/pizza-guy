@@ -5,8 +5,8 @@ const downloadPool = require('./download-pool');
 
 let filesList = null;
 let savePath = null;
-let successCallback;
-let errorCallback;
+let successCallback = ()=>{};
+let errorCallback = ()=>{};
 
 function setFilesList(list) {
   filesList = dataAdapter(
