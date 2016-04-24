@@ -3,46 +3,51 @@
 const dataAdapter = require('./data-adapter');
 const downloadPool = require('./download-pool');
 
-let filesList = null;
-let savePath = null;
-let successCallback = ()=>{};
-let errorCallback = ()=>{};
-
-function setFilesList(list) {
-  filesList = dataAdapter(
-    list,
-    savePath ? savePath : process.cwd()
-  );
-  return this;
-}
-
-function setDestinyFolder(path) {
-  savePath = path;
-  return this;
-}
-
-function setSuccessCallback(cb) {
-  successCallback = cb;
-  return this;
-}
-
-function setErrorCallback(cb) {
-  errorCallback = cb;
-  return this;
-}
-
-function start () {
-  downloadPool(
-    filesList,
-    successCallback,
-    errorCallback
-  );
-}
+let savePath = '';
+let filesList = [];
+let errorCallback = () => {};
+let successCallback = () => {};
 
 module.exports = {
-  deliver: setFilesList,
-  onAddress: setDestinyFolder,
-  onSuccess: setSuccessCallback,
-  onError: setErrorCallback,
-  start: start
+  deliver(list) {
+    if (!Array.isArray(list)) {
+      throw Error('The list must be an array');
+    }
+    if (!list.every((item) => {return typeof item === 'string';})) {
+      throw Error('The list must contains just strings');
+    }
+    filesList = list;
+    return this;
+  },
+  onAddress(path) {
+    if (typeof path !== 'string') {
+      throw Error('The address must be a string');
+    }
+    savePath = path;
+    return this;
+  },
+  onSuccess(cb) {
+    if (typeof cb !== 'function') {
+      throw Error('Must be a function');
+    }
+    successCallback = cb;
+    return this;
+  },
+  onError(cb) {
+    if (typeof cb !== 'function') {
+      throw Error('Must be a function');
+    }
+    errorCallback = cb;
+    return this;
+  },
+  start() {
+    downloadPool(
+      dataAdapter(
+        filesList,
+        savePath ? savePath : process.cwd()
+      ),
+      successCallback,
+      errorCallback
+    );
+  }
 };

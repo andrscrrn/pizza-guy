@@ -1,18 +1,19 @@
 'use strict';
 
 const http = require('http');
+const path = require('path');
 const fs = require('fs');
 
 /**
  * Establish TCP connection for saving an image on disk
- * @param  {Object} image object containg data for the download process
+ * @param  {Object} file object containg data for the download process
  * @return {void}
  */
-function downloadFile(file) {
+const downloadFile = (file) => {
 
   const ENCODING_TYPE = 'binary';
 
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
 
     const config = {
       host: file.host,
@@ -20,24 +21,15 @@ function downloadFile(file) {
       path: file.path
     };
 
-    if (fs.existsSync(file.fileName)) {
-      resolve(file.fileName);
-    } else {
-      http
-        .get(config, writeImageOnDisk)
-        .on('error', (err) => {
-          if (err) reject(
-            Error('There was a problem retrieving the file from the server.'),
-            file.fileName
-          );
-        });
-    }
-
-    function writeImageOnDisk(response) {
+    const writeImageOnDisk = (response) => {
 
       let imagedata = '';
 
       response.setEncoding(ENCODING_TYPE);
+
+      if (!fs.existsSync(path.dirname(file.fileName))) {
+        fs.mkdirSync(path.dirname(file.fileName));
+      }
 
       response.on('data', (chunk) => {
         imagedata += chunk;
@@ -51,16 +43,32 @@ function downloadFile(file) {
           (err) => {
             if (err) {
               reject(
-                Error('There was a problem saving the file.'),
-                file.fileName
+                err,
+                {fileName: file.fileName}
               );
             }
-            resolve(file.fileName);
+            resolve({fileName: file.fileName, isRepeated: false});
           }
         );
       });
+    };
+
+    if (fs.existsSync(file.fileName)) {
+      resolve({fileName: file.fileName, isRepeated: true});
+    } else {
+      http
+        .get(config, writeImageOnDisk)
+        .on('error', (err) => {
+          if (err) {
+            reject(
+              err,
+              {fileName: file.fileName}
+            );
+          }
+        });
     }
+
   });
-}
+};
 
 module.exports = downloadFile;

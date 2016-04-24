@@ -4,35 +4,37 @@ const downloadFile = require('./download-file');
 
 const POOL_LIMIT = 6;
 
-function splice(arr, limit) {
-  let slicedArray = [];
-  while(arr.length) {
-    let temp = arr.splice(0, limit);
-    slicedArray.push(temp);
+const splice = (arr, limit) => {
+  const splicedArray = [];
+  while (arr.length) {
+    const temp = arr.splice(0, limit);
+    splicedArray.push(temp);
   }
-  return slicedArray;
-}
+  return splicedArray;
+};
 
-function batchDownload(arr, limit, successCb, errorCb) {
+const batchDownload = (arr, limit, successCb, errorCb) => {
   let downloadIndex = 0;
-  arr
-    .shift()
-    .forEach((file) => {
-      downloadFile(file)
-        .then((fileName) => {
-          successCb(fileName);
-          if (++downloadIndex % limit === 0) {
-            batchDownload(arr, limit, successCb, errorCb);
-          }
-        })
-        .catch((error, fileName) => {
-          errorCb(fileName);
-          downloadIndex++;
-          console.log(error);
-        });
-    }
-  );
-}
+  if (arr.length) {
+    arr
+      .shift()
+      .forEach((file) => {
+        downloadFile(file)
+          .then((data) => {
+            successCb(data);
+            downloadIndex++;
+            if (!(downloadIndex % limit)) {
+              batchDownload(arr, limit, successCb, errorCb);
+            }
+          })
+          .catch((error, data) => {
+            errorCb(data);
+            downloadIndex++;
+          });
+      }
+    );
+  }
+};
 
 module.exports = (list, successCb, errorCb) => {
   batchDownload(

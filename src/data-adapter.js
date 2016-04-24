@@ -1,23 +1,25 @@
 'use strict';
 
-function dataAdapter (data, savePath) {
+const url = require('url');
+const path = require('path');
 
-  return Array.from(new Set(data)).map((url) => {
+const parseDirPath = (dirPath) => {
+  let newPath = '';
+  if (path.isAbsolute(dirPath)) {
+    newPath = `${dirPath}/`;
+  } else {
+    newPath = `${process.cwd()}/${dirPath}/`
+      .replace('./', '');
+  }
+  return path.normalize(newPath);
+};
 
-    let host = `${url.split('.com')[0]}.com`;
-    let path = url.split('.com')[1];
-    let filename = `/${url.split('/')[url.split('/').length - 1]}`;
-
-    let fileObject = {
-      host: url.indexOf('http://') !== -1
-        ? host.replace('http://', '')
-        : host.replace('https://', ''),
-      path: path,
-      fileName: `${savePath}${filename}`
+module.exports = (data, savePath) => {
+  return Array.from(new Set(data)).map((link) => {
+    return {
+      host: url.parse(link).host,
+      path: url.parse(link).path,
+      fileName: `${parseDirPath(savePath)}${path.basename(link)}`
     };
-
-    return fileObject;
   });
-}
-
-module.exports = dataAdapter;
+};
