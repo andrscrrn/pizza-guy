@@ -27,9 +27,13 @@
   },
   "homepage": "https://github.com/andresdavid90/pizza-guy#readme",
   "devDependencies": {
+    "babel-eslint": "^6.0.3",
     "codecov.io": "0.1.6",
     "commitizen": "2.7.4",
     "cz-conventional-changelog": "1.1.5",
+    "eslint": "^1.10.3",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-filenames": "^0.2.0",
     "expect": "1.16.0",
     "ghooks": "1.1.1",
     "istanbul": "0.4.2",
