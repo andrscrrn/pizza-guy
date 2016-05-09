@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+  'env': {
+    'node': true,
+    'mocha': true
+  },
   'rules': {
     'quotes': [2, 'single'],
     'no-nested-ternary': [1],

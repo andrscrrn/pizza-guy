@@ -8,7 +8,8 @@
     "test:watch": "mocha src/index.test.js -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "lint": "eslint -c .eslintrc.js src"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,7 @@
     "codecov.io": "0.1.6",
     "commitizen": "2.7.4",
     "cz-conventional-changelog": "1.1.5",
-    "eslint": "^1.10.3",
+    "eslint": "1.10.3",
     "eslint-config-defaults": "^9.0.0",
     "eslint-plugin-filenames": "^0.2.0",
     "expect": "1.16.0",
