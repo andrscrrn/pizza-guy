@@ -14,7 +14,7 @@ const parseDirPath = (dirPath) => {
   return path.normalize(newPath);
 };
 
-module.exports = (data, savePath) => {
+module.exports = (data, savePath = process.cwd()) => {
   return Array.from(new Set(data)).map((link) => {
     return {
       host: url.parse(link).host,

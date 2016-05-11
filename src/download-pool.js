@@ -28,7 +28,7 @@ const batchDownload = (arr, limit, successCb, errorCb) => {
             }
           })
           .catch((error, data) => {
-            errorCb(data);
+            errorCb(error, data);
             downloadIndex++;
           });
       }

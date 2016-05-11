@@ -23,7 +23,7 @@ const downloadFile = (file) => {
 
     const writeImageOnDisk = (response) => {
 
-      let imagedata = '';
+      let filedata = '';
 
       response.setEncoding(ENCODING_TYPE);
 
@@ -32,13 +32,13 @@ const downloadFile = (file) => {
       }
 
       response.on('data', (chunk) => {
-        imagedata += chunk;
+        filedata += chunk;
       });
 
       response.on('end', () => {
         fs.writeFile(
           file.fileName,
-          imagedata,
+          filedata,
           ENCODING_TYPE,
           (err) => {
             if (err) {

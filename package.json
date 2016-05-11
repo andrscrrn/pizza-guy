@@ -2,10 +2,10 @@
   "name": "pizza-guy",
   "version": "0.0.0-semantically-released",
   "description": "If you already have a big list of urls of files that you want to download but you don't know how, this is your module.",
-  "main": "src/index.js",
+  "main": "src/pizza-guy.js",
   "scripts": {
-    "test": "istanbul cover -x *.test.js _mocha -- -R spec src/index.test.js",
-    "test:watch": "mocha src/index.test.js -w",
+    "test": "istanbul cover -x *.spec.js _mocha -- -R spec test/*.spec.js",
+    "test:watch": "mocha test/*.spec.js -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
