@@ -13,7 +13,7 @@ module.exports = {
     if (!Array.isArray(list)) {
       throw Error('The list must be an array');
     }
-    if (!list.every((item) => {return typeof item === 'string';})) {
+    if (!list.every((item) => typeof item === 'string')) {
       throw Error('The list must contains just strings');
     }
     filesList = list;
@@ -44,7 +44,7 @@ module.exports = {
     downloadPool(
       dataAdapter(
         filesList,
-        savePath ? savePath : process.cwd()
+        savePath
       ),
       successCallback,
       errorCallback

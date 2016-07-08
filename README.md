@@ -25,11 +25,11 @@ const images = [
 pizzaGuy
   .deliver(images)
   .onAddress('./some-path')
-  .onSuccess((filename) => {
-    console.log(`${filename} succeed!`);
+  .onSuccess((info) => {
+    console.log(`${info.fileName} succeed!`);
   })
-  .onError((filename) => {
-    console.log(`${filename} failed`);
+  .onError((info) => {
+    console.log(`${info.fileName} failed`);
   })
   .start();
 ```
