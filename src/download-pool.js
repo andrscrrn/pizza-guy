@@ -1,5 +1,3 @@
-'use strict';
-
 const downloadFile = require('./download-file');
 
 const POOL_LIMIT = 6;

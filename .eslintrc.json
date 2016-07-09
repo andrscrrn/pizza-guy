@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "space-before-function-paren": [2, "never"],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "comma-dangle": ["error", "never"]
+  }
+}

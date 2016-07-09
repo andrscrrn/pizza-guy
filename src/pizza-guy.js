@@ -1,5 +1,3 @@
-'use strict';
-
 const dataAdapter = require('./data-adapter');
 const downloadPool = require('./download-pool');
 

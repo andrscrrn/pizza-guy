@@ -1,5 +1,3 @@
-'use strict';
-
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
@@ -7,14 +5,13 @@ const fs = require('fs');
 /**
  * Establish TCP connection for saving an image on disk
  * @param  {Object} file object containg data for the download process
- * @return {void}
+ * @return {Promise}
  */
 const downloadFile = (file) => {
-
   const ENCODING_TYPE = 'binary';
+  const { fileName } = file;
 
   return new Promise((resolve, reject) => {
-
     const config = {
       host: file.host,
       port: 80,
@@ -22,13 +19,12 @@ const downloadFile = (file) => {
     };
 
     const writeImageOnDisk = (response) => {
-
       let filedata = '';
 
       response.setEncoding(ENCODING_TYPE);
 
-      if (!fs.existsSync(path.dirname(file.fileName))) {
-        fs.mkdirSync(path.dirname(file.fileName));
+      if (!fs.existsSync(path.dirname(fileName))) {
+        fs.mkdirSync(path.dirname(fileName));
       }
 
       response.on('data', (chunk) => {
@@ -37,37 +33,30 @@ const downloadFile = (file) => {
 
       response.on('end', () => {
         fs.writeFile(
-          file.fileName,
+          fileName,
           filedata,
           ENCODING_TYPE,
           (err) => {
             if (err) {
-              reject(
-                err,
-                {fileName: file.fileName}
-              );
+              reject(err, { fileName });
             }
-            resolve({fileName: file.fileName, isRepeated: false});
+            resolve({ fileName, isRepeated: false });
           }
         );
       });
     };
 
-    if (fs.existsSync(file.fileName)) {
-      resolve({fileName: file.fileName, isRepeated: true});
+    if (fs.existsSync(fileName)) {
+      resolve({ fileName, isRepeated: true });
     } else {
       http
         .get(config, writeImageOnDisk)
         .on('error', (err) => {
           if (err) {
-            reject(
-              err,
-              {fileName: file.fileName}
-            );
+            reject(err, { fileName });
           }
         });
     }
-
   });
 };
 
