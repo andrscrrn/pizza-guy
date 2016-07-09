@@ -1,5 +1,3 @@
-'use strict';
-
 const url = require('url');
 const path = require('path');
 
@@ -14,12 +12,10 @@ const parseDirPath = (dirPath) => {
   return path.normalize(newPath);
 };
 
-module.exports = (data, savePath = process.cwd()) => {
-  return Array.from(new Set(data)).map((link) => {
-    return {
-      host: url.parse(link).host,
-      path: url.parse(link).path,
-      fileName: `${parseDirPath(savePath)}${path.basename(link)}`
-    };
-  });
+module.exports = function getDataAdapterOptions(data, savePath = process.cwd()) {
+  return Array.from(new Set(data)).map((link) => ({
+    host: url.parse(link).host,
+    path: url.parse(link).path,
+    fileName: `${parseDirPath(savePath)}${path.basename(link)}`
+  }));
 };

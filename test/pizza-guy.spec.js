@@ -1,5 +1,4 @@
-/*eslint max-nested-callbacks: [2, 4]*/
-'use strict';
+/* eslint max-nested-callbacks: [2, 4] */
 
 import expect from 'expect';
 import pizzaGuy from '../src/pizza-guy.js';
