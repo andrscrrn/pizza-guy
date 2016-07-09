@@ -1,4 +1,4 @@
-/*eslint-disable */
+/*eslint max-nested-callbacks: [2, 4]*/
 
 'use strict';
 

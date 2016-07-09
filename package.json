@@ -9,7 +9,7 @@
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "lint": "eslint -c .eslintrc.js src"
+    "lint": "eslint -c .eslintrc.js src test"
   },
   "repository": {
     "type": "git",
@@ -46,7 +46,7 @@
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run test && npm run lint"
     }
   }
 }
