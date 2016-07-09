@@ -13,7 +13,7 @@ const splice = (arr, limit) => {
   return splicedArray;
 };
 
-const batchDownload = (arr, limit, successCb, errorCb) => {
+const batchDownload = (arr, limit, successCb, errorCb) => { // eslint-disable-line
   let downloadIndex = 0;
   if (arr.length) {
     arr
