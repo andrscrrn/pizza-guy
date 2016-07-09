@@ -4,8 +4,9 @@
   "description": "If you already have a big list of urls of files that you want to download but you don't know how, this is your module.",
   "main": "src/pizza-guy.js",
   "scripts": {
-    "test": "istanbul cover -x *.spec.js _mocha -- -R spec test/*.spec.js",
-    "test:watch": "mocha test/*.spec.js -w",
+    "test": "nyc npm run test:raw",
+    "test:raw": "mocha --compilers js:babel-core/register test/*.spec.js",
+    "test:watch": "npm run test:raw -- -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
@@ -39,6 +40,7 @@
     "ghooks": "1.1.1",
     "istanbul": "0.4.2",
     "mocha": "2.4.5",
+    "nyc": "7.0.0",
     "semantic-release": "^4.3.5"
   },
   "config": {
@@ -48,5 +50,10 @@
     "ghooks": {
       "pre-commit": "npm run test && npm run lint"
     }
+  },
+  "dependencies": {
+    "babel-core": "6.10.4",
+    "babel-preset-modern-node": "2.2.1",
+    "babel-preset-stage-2": "6.11.0"
   }
 }

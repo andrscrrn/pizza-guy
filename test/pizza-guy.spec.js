@@ -1,9 +1,8 @@
 /*eslint max-nested-callbacks: [2, 4]*/
-
 'use strict';
 
-const expect = require('expect');
-const pizzaGuy = require('../src/pizza-guy.js');
+import expect from 'expect';
+import pizzaGuy from '../src/pizza-guy.js';
 
 describe('pizza-guy', () => {
   describe('deliver', () => {
