@@ -1,6 +1,6 @@
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
+import http from 'http';
+import path from 'path';
+import fs from 'fs';
 
 /**
  * Establish TCP connection for saving an image on disk
@@ -32,17 +32,10 @@ const downloadFile = (file) => {
       });
 
       response.on('end', () => {
-        fs.writeFile(
-          fileName,
-          filedata,
-          ENCODING_TYPE,
-          (err) => {
-            if (err) {
-              reject(err, { fileName });
-            }
-            resolve({ fileName, isRepeated: false });
-          }
-        );
+        fs.writeFile(fileName, filedata, ENCODING_TYPE, (err) => {
+          if (err) reject(err, { fileName });
+          resolve({ fileName, isRepeated: false });
+        });
       });
     };
 
@@ -52,12 +45,10 @@ const downloadFile = (file) => {
       http
         .get(config, writeImageOnDisk)
         .on('error', (err) => {
-          if (err) {
-            reject(err, { fileName });
-          }
+          if (err) reject(err, { fileName });
         });
     }
   });
 };
 
-module.exports = downloadFile;
+export default downloadFile;
