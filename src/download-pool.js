@@ -1,4 +1,4 @@
-const downloadFile = require('./download-file');
+import downloadFile from './download-file';
 
 const POOL_LIMIT = 6;
 
@@ -34,11 +34,6 @@ const batchDownload = (arr, limit, successCb, errorCb) => { // eslint-disable-li
   }
 };
 
-module.exports = (list, successCb, errorCb) => {
-  batchDownload(
-    splice(list, POOL_LIMIT),
-    POOL_LIMIT,
-    successCb,
-    errorCb
-  );
-};
+export default function downloadPool(list, successCb, errorCb) {
+  batchDownload(splice(list, POOL_LIMIT), POOL_LIMIT, successCb, errorCb);
+}

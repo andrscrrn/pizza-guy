@@ -1,5 +1,5 @@
-const url = require('url');
-const path = require('path');
+import url from 'url';
+import path from 'path';
 
 const parseDirPath = (dirPath) => {
   let newPath = '';
@@ -12,10 +12,10 @@ const parseDirPath = (dirPath) => {
   return path.normalize(newPath);
 };
 
-module.exports = function getDataAdapterOptions(data, savePath = process.cwd()) {
+export default function getDataAdapterOptions(data, savePath = process.cwd()) {
   return Array.from(new Set(data)).map((link) => ({
     host: url.parse(link).host,
     path: url.parse(link).path,
     fileName: `${parseDirPath(savePath)}${path.basename(link)}`
   }));
-};
+}
