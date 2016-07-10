@@ -15,14 +15,12 @@ The idea is to support really big lists of files that would be insane to downloa
 
 ### Require / Import
 
-Using a transpiler like Babel:
 ```
-import pizzaGuy from 'pizza-guy':
+import pizzaGuy from 'pizza-guy';
+// OR
+var pizzaGuy = require('pizza-guy');
 ```
-Use this syntax if you're not using a JS transpiler (see [here](https://medium.com/@kentcdodds/misunderstanding-es6-modules-upgrading-babel-tears-and-a-solution-ad2d5ab93ce0#.uk42faw0g) why):
-```
-const pizzaGuy = require('pizza-guy').default;
-```
+
 ### Prepare your data
 ```
 const images = [
