@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
-    "test": "nyc npm run test:raw",
+    "test": "nyc --reporter=lcov npm run test:raw",
     "test:raw": "mocha --compilers js:babel-core/register test/*.spec.js",
     "test:watch": "npm run test:raw -- -w",
     "commit": "git-cz",
