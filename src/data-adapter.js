@@ -12,10 +12,15 @@ const parseDirPath = (dirPath) => {
   return path.normalize(newPath);
 };
 
+const removeDuplicates = arr => Array.from(new Set(arr));
+
 export default function getDataAdapterOptions(data, savePath = process.cwd()) {
-  return Array.from(new Set(data)).map((link) => ({
-    host: url.parse(link).host,
-    path: url.parse(link).path,
-    fileName: `${parseDirPath(savePath)}${path.basename(link)}`
-  }));
+  return removeDuplicates(data).map((urlString) => {
+    const fileObject = {
+      host: url.parse(urlString).host,
+      path: url.parse(urlString).path,
+      fileName: `${parseDirPath(savePath)}${path.basename(urlString)}`
+    };
+    return fileObject;
+  });
 }
