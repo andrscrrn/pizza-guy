@@ -6,7 +6,7 @@ let filesList = [];
 let errorCallback = () => {};
 let successCallback = () => {};
 
-export default {
+module.exports = { // Not using ES6 export syntax to avoid backward compatibility problems
   deliver(list) {
     if (!Array.isArray(list)) {
       throw Error('The list must be an array');
