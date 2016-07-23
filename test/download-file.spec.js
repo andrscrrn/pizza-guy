@@ -4,7 +4,7 @@ import fs from 'fs';
 
 import { writeImageOnDisk } from '../src/download-file';
 
-/* eslint-disable  func-names, prefer-arrow-callback */
+/* eslint-disable func-names, prefer-arrow-callback */
 describe('writeImageOnDisk', function() {
   beforeEach(function() {
     this.sandbox = sinon.sandbox.create();
