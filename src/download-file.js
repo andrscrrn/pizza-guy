@@ -37,7 +37,7 @@ export const writeImageOnDisk = ({
 
 /**
  * Establish TCP connection for saving an image on disk
- * @param  {Object} file object containg data for the download process
+ * @param  {Object} file object containing data for the download process
  * @return {Promise}
  */
 const downloadFile = (file) => {
