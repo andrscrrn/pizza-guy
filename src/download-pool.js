@@ -1,19 +1,17 @@
-'use strict';
-
-const downloadFile = require('./download-file');
+import downloadFile from './download-file';
 
 const POOL_LIMIT = 6;
 
-const splice = (arr, limit) => {
+export const splice = (arr, limit) => {
   const splicedArray = [];
+
   while (arr.length) {
-    const temp = arr.splice(0, limit);
-    splicedArray.push(temp);
+    splicedArray.push(arr.splice(0, limit));
   }
   return splicedArray;
 };
 
-const batchDownload = (arr, limit, successCb, errorCb) => {
+const batchDownload = (arr, limit, successCb, errorCb) => { // eslint-disable-line
   let downloadIndex = 0;
   if (arr.length) {
     arr
@@ -36,11 +34,6 @@ const batchDownload = (arr, limit, successCb, errorCb) => {
   }
 };
 
-module.exports = (list, successCb, errorCb) => {
-  batchDownload(
-    splice(list, POOL_LIMIT),
-    POOL_LIMIT,
-    successCb,
-    errorCb
-  );
-};
+export default function downloadPool(list, successCb, errorCb) {
+  batchDownload(splice(list, POOL_LIMIT), POOL_LIMIT, successCb, errorCb);
+}

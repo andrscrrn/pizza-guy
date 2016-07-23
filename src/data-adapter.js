@@ -1,7 +1,5 @@
-'use strict';
-
-const url = require('url');
-const path = require('path');
+import url from 'url';
+import path from 'path';
 
 const parseDirPath = (dirPath) => {
   let newPath = '';
@@ -14,12 +12,15 @@ const parseDirPath = (dirPath) => {
   return path.normalize(newPath);
 };
 
-module.exports = (data, savePath = process.cwd()) => {
-  return Array.from(new Set(data)).map((link) => {
-    return {
-      host: url.parse(link).host,
-      path: url.parse(link).path,
-      fileName: `${parseDirPath(savePath)}${path.basename(link)}`
+const removeDuplicates = arr => Array.from(new Set(arr));
+
+export default function getDataAdapterOptions(data, savePath = process.cwd()) {
+  return removeDuplicates(data).map((urlString) => {
+    const fileObject = {
+      host: url.parse(urlString).host,
+      path: url.parse(urlString).path,
+      fileName: `${parseDirPath(savePath)}${path.basename(urlString)}`
     };
+    return fileObject;
   });
-};
+}

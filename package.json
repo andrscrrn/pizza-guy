@@ -2,13 +2,18 @@
   "name": "pizza-guy",
   "version": "0.0.0-semantically-released",
   "description": "If you already have a big list of urls of files that you want to download but you don't know how, this is your module.",
-  "main": "src/pizza-guy.js",
+  "main": "dist/pizza-guy.js",
   "scripts": {
-    "test": "istanbul cover -x *.spec.js _mocha -- -R spec test/*.spec.js",
-    "test:watch": "mocha test/*.spec.js -w",
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build",
+    "test": "nyc --reporter=lcov npm run test:raw",
+    "test:raw": "mocha --compilers js:babel-core/register test/*.spec.js",
+    "test:watch": "npm run test:raw -- -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "lint": "eslint src test",
+    "demo": "npm run build && node ./demo/index"
   },
   "repository": {
     "type": "git",
@@ -27,25 +32,35 @@
   },
   "homepage": "https://github.com/andresdavid90/pizza-guy#readme",
   "devDependencies": {
+    "babel-cli": "6.10.1",
     "babel-eslint": "^6.0.3",
     "codecov.io": "0.1.6",
     "commitizen": "2.7.4",
     "cz-conventional-changelog": "1.1.5",
-    "eslint": "^1.10.3",
-    "eslint-config-defaults": "^9.0.0",
-    "eslint-plugin-filenames": "^0.2.0",
+    "eslint": "2.13.1",
+    "eslint-config-airbnb": "9.0.1",
+    "eslint-plugin-import": "1.11.1",
+    "eslint-plugin-jsx-a11y": "1.5.5",
+    "eslint-plugin-react": "5.2.2",
     "expect": "1.16.0",
     "ghooks": "1.1.1",
     "istanbul": "0.4.2",
     "mocha": "2.4.5",
-    "semantic-release": "^4.3.5"
+    "nyc": "7.0.0",
+    "semantic-release": "^4.3.5",
+    "sinon": "1.17.4"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run test && npm run lint"
     }
+  },
+  "dependencies": {
+    "babel-core": "6.10.4",
+    "babel-preset-modern-node": "2.2.1",
+    "babel-preset-stage-2": "6.11.0"
   }
 }
