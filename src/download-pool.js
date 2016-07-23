@@ -2,11 +2,11 @@ import downloadFile from './download-file';
 
 const POOL_LIMIT = 6;
 
-const splice = (arr, limit) => {
+export const splice = (arr, limit) => {
   const splicedArray = [];
+
   while (arr.length) {
-    const temp = arr.splice(0, limit);
-    splicedArray.push(temp);
+    splicedArray.push(arr.splice(0, limit));
   }
   return splicedArray;
 };
