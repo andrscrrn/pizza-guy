@@ -12,7 +12,8 @@
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "demo": "npm run build && node ./demo/index"
   },
   "repository": {
     "type": "git",

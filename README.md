@@ -48,6 +48,11 @@ pizzaGuy
   .start();
 ```
 
+## Want a demo?
+You can try out this module without any hassle. Just run `npm run demo` and you're all set.
+
+Demo files are located in `demo/index.js` and downloaded images will be located in `demo/downloaded-images`
+
 ## How to contribute
 This project is opened to everyone to contribute. If you want to, please read our To-Do list and also about [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) and
 [![Semantic Released](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) since the build is relying on these to test and publish automatically on NPM.

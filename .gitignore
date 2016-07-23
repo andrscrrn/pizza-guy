@@ -6,3 +6,4 @@ to-develop
 .idea
 .nyc_output
 dist
+demo/downloaded-images
