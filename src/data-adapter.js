@@ -6,8 +6,7 @@ const parseDirPath = (dirPath) => {
   if (path.isAbsolute(dirPath)) {
     newPath = `${dirPath}/`;
   } else {
-    newPath = `${process.cwd()}/${dirPath}/`
-      .replace('./', '');
+    newPath = `${process.cwd()}/${dirPath}/`.replace('./', '');
   }
   return path.normalize(newPath);
 };
@@ -15,12 +14,9 @@ const parseDirPath = (dirPath) => {
 const removeDuplicates = arr => Array.from(new Set(arr));
 
 export default function getDataAdapterOptions(data, savePath = process.cwd()) {
-  return removeDuplicates(data).map((urlString) => {
-    const fileObject = {
-      host: url.parse(urlString).host,
-      path: url.parse(urlString).path,
-      fileName: `${parseDirPath(savePath)}${path.basename(urlString)}`
-    };
-    return fileObject;
-  });
+  return removeDuplicates(data).map((urlString) => ({
+    host: url.parse(urlString).host,
+    path: url.parse(urlString).path,
+    fileName: `${parseDirPath(savePath)}${path.basename(urlString)}`
+  }));
 }
