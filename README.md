@@ -57,17 +57,5 @@ Demo files are located in `demo/index.js` and downloaded images will be located 
 This project is opened to everyone to contribute. If you want to, please read our To-Do list and also about [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) and
 [![Semantic Released](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) since the build is relying on these to test and publish automatically on NPM.
 
-## To Do List
-If someone out there wants to collaborate in this project, please take into consideration our To Do list. Also, add any item that you think would be useful.
-
-Items are written in order of priority:
-- [ ] Integration test using mock server or similar.
-- [ ] Increase code coverage index.
-
-## Might Do List
-List of items that we might do but we haven't decided yet.
-- Use RxJS internally without affecting the existing API.
-- Expose an optional Obserbable API for RxJS users.
-
 ## Issues / bugs
 We are working once on a while in this small library. Please report an issue [here](https://github.com/andresdavid90/pizza-guy/issues) and we'll take a look as soon as we can.
