@@ -17,7 +17,7 @@ The idea is to support really big lists of files that would be insane to downloa
 
 ```
 import pizzaGuy from 'pizza-guy';
-// OR
+// or
 var pizzaGuy = require('pizza-guy');
 ```
 
@@ -54,8 +54,10 @@ You can try out this module without any hassle. Just run `npm run demo` and you'
 Demo files are located in `demo/index.js` and downloaded images will be located in `demo/downloaded-images`
 
 ## How to contribute
-This project is opened to everyone to contribute. If you want to, please read our To-Do list and also about [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) and
+This project is opened to everyone to contribute. If you want to, please read our GitHub issues and look for any that suits better to you. Also read about [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) and
 [![Semantic Released](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) since the build is relying on these to test and publish automatically on NPM.
+
+**Please don't forget to run `npm run demo` before submitting any change just to double check that everything is working like a charm.** We are expecting to have this as part of the testing suite but we are still working on it.
 
 ## Issues / bugs
 We are working once on a while in this small library. Please report an issue [here](https://github.com/andresdavid90/pizza-guy/issues) and we'll take a look as soon as we can.
