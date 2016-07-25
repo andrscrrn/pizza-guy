@@ -1,4 +1,6 @@
 # pizza-guy
+
+[![Join the chat at https://gitter.im/andresdavid90/pizza-guy](https://badges.gitter.im/andresdavid90/pizza-guy.svg)](https://gitter.im/andresdavid90/pizza-guy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Travis](https://img.shields.io/travis/andresdavid90/pizza-guy.svg?style=flat-square)](https://travis-ci.org/andresdavid90/pizza-guy)
 [![Codecov](https://img.shields.io/codecov/c/github/andresdavid90/pizza-guy.svg?style=flat-square)](https://codecov.io/github/andresdavid90/pizza-guy)
 [![NPM](https://img.shields.io/npm/v/pizza-guy.svg?style=flat-square)](https://www.npmjs.com/package/pizza-guy)
