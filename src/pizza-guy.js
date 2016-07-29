@@ -12,8 +12,10 @@ module.exports = {
     if (!Array.isArray(list)) {
       throw Error('The list must be an array');
     }
-    if (!list.every((item) => typeof item === 'string')) {
-      throw Error('The list must contains just strings');
+    if (!list.every(
+        (item) => typeof item === 'string' || (typeof item === 'object' && item.url)
+        )) {
+      throw Error('The list must contains just strings or be objects wiht the url property.');
     }
     filesList = list;
 

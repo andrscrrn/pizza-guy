@@ -14,9 +14,20 @@ const parseDirPath = (dirPath) => {
 const removeDuplicates = arr => Array.from(new Set(arr));
 
 export default function getDataAdapterOptions(data, savePath = process.cwd()) {
-  return removeDuplicates(data).map((urlString) => ({
-    host: url.parse(urlString).host,
-    path: url.parse(urlString).path,
-    fileName: `${parseDirPath(savePath)}${path.basename(urlString)}`
-  }));
+  return removeDuplicates(data).map((item) => {
+    const itemurl = (typeof item === 'string') ? item : item.url;
+    let name = '';
+    if (typeof item === 'string') {
+      name = path.basename(item);
+    } else if (!item.name) {
+      name = path.basename(item.url);
+    } else {
+      name = item.name;
+    }
+    return {
+      host: url.parse(itemurl).host,
+      path: url.parse(itemurl).path,
+      fileName: `${parseDirPath(savePath)}${name}`
+    };
+  });
 }
