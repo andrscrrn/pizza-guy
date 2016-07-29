@@ -46,14 +46,30 @@
     "istanbul": "0.4.2",
     "mocha": "2.4.5",
     "nyc": "7.0.0",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^4.3.5",
+    "validate-commit-msg": "2.6.1"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm run test && npm run lint"
+      "pre-commit": "npm run test && npm run lint",
+      "commit-msg": "validate-commit-msg"
+    },
+    "validate-commit-msg": {
+      "helpMessage": "\nLooks you're not using the `npm run commit` command. Please use it.\n",
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore"
+      ],
+      "warnOnFail": false
     }
   },
   "dependencies": {
