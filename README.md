@@ -61,5 +61,7 @@ This project is opened to everyone to contribute. If you want to, please read ou
 
 **Please don't forget to run `npm run demo` before submitting any change just to double check that everything is working like a charm.** We are expecting to have this as part of the testing suite but we are still working on it.
 
+Please use `npm run commit` instead of `git commit -m "your message"` since we're using semantic release + commitizen and we aim to have things as tidy as possible.
+
 ## Issues / bugs
 We are working once on a while in this small library. Please report an issue [here](https://github.com/andresdavid90/pizza-guy/issues) and we'll take a look as soon as we can.
