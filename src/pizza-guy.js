@@ -13,7 +13,7 @@ module.exports = {
       throw Error('The list must be an array');
     }
     if (!list.every(
-        (item) => typeof item === 'string' || (typeof item === 'object' && item.url)
+        (item) => typeof item === 'string' || item.hasOwnProperty('url')
         )) {
       throw Error('The list must contains just strings or be objects wiht the url property.');
     }
