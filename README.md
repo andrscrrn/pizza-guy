@@ -17,14 +17,14 @@ The idea is to support really big lists of files that would be insane to downloa
 
 ### Require / Import
 
-```
+```javascript
 import pizzaGuy from 'pizza-guy';
 // or
 var pizzaGuy = require('pizza-guy');
 ```
 
 ### Prepare your data
-```
+```javascript
 const images = [
   'http://some.domain.com/file0.jpg',
   'https://some.domain.com/file1.gif',
@@ -32,7 +32,7 @@ const images = [
 ];
 ```
 ### Execute
-```
+```javascript
 pizzaGuy
   // Pass an array of strings containing urls...
   .deliver(images)
