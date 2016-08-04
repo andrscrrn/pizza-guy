@@ -7,3 +7,4 @@ to-develop
 .nyc_output
 dist
 demo/downloaded-images
+.vscode
