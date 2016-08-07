@@ -1,37 +1,5 @@
-import http from 'http';
-import path from 'path';
 import fs from 'fs';
-import {
-  PORT,
-  ENCODING_TYPE
-} from './constants';
-
-export function writeImageOnDisk({
-  response,
-  encoding,
-  fileName,
-  resolve,
-  reject
-}) {
-  let fileData = '';
-
-  response.setEncoding(encoding);
-
-  if (!fs.existsSync(path.dirname(fileName))) {
-    fs.mkdirSync(path.dirname(fileName));
-  }
-
-  response.on('data', (chunk) => {
-    fileData += chunk;
-  });
-
-  response.on('end', () => {
-    fs.writeFile(fileName, fileData, ENCODING_TYPE, (err) => {
-      if (err) reject(err, { fileName });
-      resolve({ fileName, isRepeated: false });
-    });
-  });
-}
+import request from 'request';
 
 /**
  * Establish TCP connection for saving an image on disk
@@ -42,33 +10,25 @@ const downloadFile = (file) => {
   const {
     fileName,
     host,
-    path: filePath
+    path
   } = file;
 
   return new Promise((resolve, reject) => {
-    const config = {
-      host,
-      port: PORT,
-      filePath
-    };
-
-    if (fs.existsSync(fileName)) {
-      resolve({ fileName, isRepeated: true });
-    } else {
-      http
-        .get(config, (response) => {
-          writeImageOnDisk({
-            response,
-            encoding: ENCODING_TYPE,
-            fileName,
-            resolve,
-            reject
+    fs.stat(fileName, (err) => {
+      if (err) { // File doesn't exists yet
+        request
+          .get(`http://${host}${path}`)
+          .on('error', (error) => {
+            reject(error, { fileName });
+          })
+          .pipe(fs.createWriteStream(fileName))
+          .on('close', () => {
+            resolve({ fileName, isRepeated: false });
           });
-        })
-        .on('error', (err) => {
-          if (err) reject(err, { fileName });
-        });
-    }
+      } else { // File is already on disk
+        resolve({ fileName, isRepeated: true });
+      }
+    });
   });
 };
 
