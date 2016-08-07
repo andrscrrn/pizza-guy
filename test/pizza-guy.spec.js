@@ -8,14 +8,16 @@ describe('pizza-guy', () => {
         .toThrow(/The list must be an array/);
     });
 
-    it('should throw an error with arrays containing non-string objects', () => {
-      expect(() => pizzaGuy.deliver([{}]))
+    it('should throw an error with arrays containing non-string objects without url property',
+      () => {
+        expect(() => pizzaGuy.deliver([{}]))
         .toThrow(/The list must contains just strings/);
-    });
+      });
 
     it('should return itself when running correctly', () => {
       expect(pizzaGuy.deliver([
-        'http://andrescarreno.co/storage/cache/images/000/317/IMG-2606,huge.1459740781.jpg'
+        'http://andrescarreno.co/storage/cache/images/000/317/IMG-2606,huge.1459740781.jpg',
+        { url: 'http://andrescarreno.co/storage/cache/images/000/317/IMG-2606,huge.1459740781.jpg', name: 'andres.jpg' }
       ])).toBe(pizzaGuy);
     });
   });

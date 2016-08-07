@@ -11,7 +11,7 @@
 
 If you already have a big list of urls of files that you want to download but you don't know how, this is your module.
 
-The idea is to support really big lists of files that would be insane to download simultaneusly since Node would break for this kind of cases. Hope others to support this cause. ✌🏻
+The idea is to support really big lists of files that would be insane to download simultaneously since Node would break for this kind of cases. Hope others to support this cause. ✌🏻
 
 ## How to use
 
@@ -31,10 +31,20 @@ const images = [
   'https://some.domain.com/file2.png'
 ];
 ```
+or, if you want to alter the filenames on download...
+
+```
+const image = [
+  { url: 'http://some.domain.com/file0.jpg', name: 'goat.jpg' },
+  { url: 'http://some.domain.com/file1.gif', name: 'cat.gif' },
+  { url: 'https://some.domain.com/file2.png', name: 'hawk.png' }
+];
+```
+
 ### Execute
 ```javascript
 pizzaGuy
-  // Pass an array of strings containing urls...
+  // Pass an array of strings containing urls or an array of objects with urls and names...
   .deliver(images)
   // Absolute or relative path to save these files...
   .onAddress('./some-path')
