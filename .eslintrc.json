@@ -1,7 +1,9 @@
 {
+  "parser": "babel-eslint",
   "extends": "airbnb",
   "plugins": [
-    "react"
+    "react",
+    "babel"
   ],
   "env": {
     "node": true,
@@ -10,6 +12,7 @@
   "rules": {
     "space-before-function-paren": [2, "never"],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "babel/generator-star-spacing": 1
   }
 }
