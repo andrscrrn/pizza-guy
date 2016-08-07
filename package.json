@@ -78,6 +78,7 @@
   "dependencies": {
     "babel-core": "6.10.4",
     "babel-preset-modern-node": "2.2.1",
-    "babel-preset-stage-2": "6.11.0"
+    "babel-preset-stage-2": "6.11.0",
+    "request": "2.74.0"
   }
 }
