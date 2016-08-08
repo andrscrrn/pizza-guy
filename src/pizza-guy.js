@@ -15,7 +15,7 @@ module.exports = {
     if (!list.every(
         (item) => typeof item === 'string' || item.hasOwnProperty('url')
         )) {
-      throw Error('The list must contains just strings or be objects wiht the url property.');
+      throw Error('The list must contains just strings or be objects with the url property.');
     }
     filesList = list;
 
