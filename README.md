@@ -33,7 +33,7 @@ const images = [
 ```
 or, if you want to alter the filenames on download...
 
-```
+```javascript
 const image = [
   { url: 'http://some.domain.com/file0.jpg', name: 'goat.jpg' },
   { url: 'http://some.domain.com/file1.gif', name: 'cat.gif' },
