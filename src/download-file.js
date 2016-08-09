@@ -3,7 +3,10 @@ import request from 'request';
 
 /**
  * Establish TCP connection for saving an image on disk
- * @param  {Object} file object containg data for the download process
+ * @param  {Object} file object containing data for the download process
+ * @param  {string} file.fileName name of the file
+ * @param  {string} file.host host for the request
+ * @param  {string} file.path path for the request.
  * @return {Promise}
  */
 const downloadFile = (file) => {
