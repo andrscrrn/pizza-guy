@@ -22,3 +22,6 @@ branches:
   only:
     - master
     - develop
+addons:
+  hosts:
+    - local.foo.com
