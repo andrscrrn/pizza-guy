@@ -4,7 +4,7 @@ import downloadFile from '../src/download-file';
 import fs from 'fs';
 import expect from 'expect';
 
-nock('http://local.foo.com')
+nock('local.foo.com')
   .persist()
   .get('/image-1.jpg')
   .replyWithFile(200, path.join(__dirname, 'fixtures/images/image-1.jpg'), {
