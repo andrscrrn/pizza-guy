@@ -14,7 +14,7 @@ nock('http://local.foo.com')
 describe('HTTP Server', () => {
   it('should create an array of objects when passing an array of relative paths', async () => {
     const file = await downloadFile({
-      host: 'http://local.foo.com',
+      host: 'local.foo.com',
       path: '/image-1.jpg',
       fileName: 'test/whatever-1.jpg'
     });
