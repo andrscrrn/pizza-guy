@@ -1,5 +1,6 @@
 import dataAdapter from './data-adapter';
 import downloadPool from './download-pool';
+import invariant from 'invariant';
 
 let savePath = '';
 let filesList = [];
@@ -9,41 +10,41 @@ let successCallback = () => {};
 // Not using ES6 export syntax to avoid backward compatibility problems
 module.exports = {
   deliver(list) {
-    if (!Array.isArray(list)) {
-      throw Error('The list must be an array');
-    }
-    if (!list.every(
+    invariant(Array.isArray(list), 'The list must be an array');
+
+    const isValidList = list.every(
         (item) => typeof item === 'string' || item.hasOwnProperty('url')
-        )) {
-      throw Error('The list must contains just strings or be objects with the url property.');
-    }
+    );
+
+    invariant(
+      isValidList,
+      'The list must contains just strings or be objects with the url property.'
+    );
+
     filesList = list;
 
     return this;
   },
 
   onAddress(path) {
-    if (typeof path !== 'string') {
-      throw Error('The address must be a string');
-    }
+    invariant(typeof path === 'string', 'The address must be a string');
+
     savePath = path;
 
     return this;
   },
 
   onSuccess(cb) {
-    if (typeof cb !== 'function') {
-      throw Error('Must be a function');
-    }
+    invariant(typeof cb === 'function', 'Must be a function');
+
     successCallback = cb;
 
     return this;
   },
 
   onError(cb) {
-    if (typeof cb !== 'function') {
-      throw Error('Must be a function');
-    }
+    invariant(typeof cb === 'function', 'Must be a function');
+
     errorCallback = cb;
 
     return this;
