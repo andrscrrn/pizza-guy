@@ -21,9 +21,17 @@ const downloadFile = (file) => {
       if (err) { // File doesn't exists yet
         request
           .get(`http://${host}${path}`)
-          .on('error', (error) => reject(error, { fileName }))
-          .pipe(fs.createWriteStream(fileName))
-          .on('close', () => resolve({ fileName, isRepeated: false }));
+          .on('response', function(response) {
+            if (response.statusCode === 200) {
+              response.request
+                .pipe(fs.createWriteStream(fileName))
+                .on('error', (error) => reject(error, { fileName }))
+                .on('close', () => resolve({ fileName, isRepeated: false }));
+            } else {
+              reject({ fileName });
+            }
+          }
+        );
       } else { // File is already on disk
         resolve({ fileName, isRepeated: true });
       }
