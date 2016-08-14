@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-callback, func-names */
 import downloadFile from '../src/download-file';
 import expect from 'expect';
 import mock from 'mock-fs';
