@@ -47,6 +47,8 @@
     "ghooks": "1.1.1",
     "istanbul": "0.4.2",
     "mocha": "2.4.5",
+    "mock-fs": "3.11.0",
+    "nock": "8.0.0",
     "nyc": "7.0.0",
     "semantic-release": "^4.3.5",
     "sinon": "1.17.4",
@@ -79,6 +81,7 @@
     "babel-core": "6.10.4",
     "babel-preset-modern-node": "2.2.1",
     "babel-preset-stage-2": "6.11.0",
+    "invariant": "2.2.1",
     "request": "2.74.0"
   }
 }
