@@ -51,7 +51,10 @@ module.exports = {
   },
 
   start() {
-    downloadPool(dataAdapter(filesList, savePath), successCallback, errorCallback);
-    downloadPool(dataAdapter(filesList, savePath), successCallback, errorCallback);
+    downloadPool({
+      fileList: dataAdapter(filesList, savePath),
+      onFileSuccess: successCallback,
+      onFileError: errorCallback
+    });
   }
 };

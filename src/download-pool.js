@@ -46,6 +46,20 @@ const batchDownload = (arr, limit, successCb, errorCb) => { // eslint-disable-li
   }
 };
 
-export default function downloadPool(list, successCb, errorCb) {
-  batchDownload(splice(list, POOL_LIMIT), POOL_LIMIT, successCb, errorCb);
+/**
+ * Download a set of files grouped in multiple bundles. Only one bundle is
+ * downloaded at a time.
+ * @param {Object} options
+ * @param {String[]} options.fileList
+ * @param {Function} options.onFileSuccess
+ * @param {Function} options.onFileError
+ */
+export default function downloadPool(options) {
+  const { fileList, onFileSuccess, onFileError } = options;
+  batchDownload({
+    limit: POOL_LIMIT,
+    fileList: splice(fileList, POOL_LIMIT),
+    onFileSuccess,
+    onFileError
+  });
 }
