@@ -1,8 +1,8 @@
 import expect from 'expect';
 import dataAdapter from '../src/data-adapter.js';
 
-describe('data-adapter', () => {
-  it('should create an array of objects when passing an array of relative paths', () => {
+describe('data-adapter', function() {
+  it('should create an array of objects when passing an array of relative paths', function() {
     expect(
       dataAdapter(
         [
@@ -23,7 +23,7 @@ describe('data-adapter', () => {
     }]);
   });
 
-  it('should create an array of objects when passing an array of absolute paths', () => {
+  it('should create an array of objects when passing an array of absolute paths', function() {
     expect(
       dataAdapter(
         [
@@ -44,7 +44,7 @@ describe('data-adapter', () => {
     }]);
   });
 
-  it('should create an array of objects without providing the savePath parameter', () => {
+  it('should create an array of objects without providing the savePath parameter', function() {
     expect(
       dataAdapter(
         [
@@ -64,7 +64,7 @@ describe('data-adapter', () => {
     }]);
   });
 
-  it('should use original image name if name property is unset or empty', () => {
+  it('should use original image name if name property is unset or empty', function() {
     expect(
       dataAdapter(
         [

@@ -11,8 +11,8 @@ nock('http://local.foo.com')
     'content-type': 'image/jpg'
   });
 
-describe('HTTP Server', () => {
-  it('should download a file using nock', async () => {
+describe('HTTP Server', function() {
+  it('should download a file using nock', async function() {
     const file = await downloadFile({
       host: 'local.foo.com',
       path: '/image-1.jpg',

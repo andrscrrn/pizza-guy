@@ -13,6 +13,8 @@
     "space-before-function-paren": [2, "never"],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "comma-dangle": ["error", "never"],
-    "babel/generator-star-spacing": 1
+    "babel/generator-star-spacing": 1,
+    "func-names": [0],
+    "prefer-arrow-callback": [0]
   }
 }
