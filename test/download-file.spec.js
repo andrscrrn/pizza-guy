@@ -25,15 +25,10 @@ describe('downloadFile()', function() {
     mock.restore();
   });
 
-  it('should return fileName and isRepeated: true if the file already exists', function(done) {
-    downloadFile(file)
-      .then(response => {
-        const { fileName, isRepeated } = response;
+  it('should return fileName and isRepeated: true if the file already exists', async function() {
+    const { fileName, isRepeated } = await downloadFile(file);
 
-        expect(fileName).toEqual(fileName);
-        expect(isRepeated).toBe(true);
-
-        done();
-      });
+    expect(fileName).toEqual(fileName);
+    expect(isRepeated).toBe(true);
   });
 });
