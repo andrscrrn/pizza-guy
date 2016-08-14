@@ -3,6 +3,7 @@ import path from 'path';
 
 const parseDirPath = (dirPath) => {
   let newPath = '';
+
   if (path.isAbsolute(dirPath)) {
     newPath = `${dirPath}/`;
   } else {

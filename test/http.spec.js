@@ -26,4 +26,8 @@ describe('HTTP Server', function() {
 
     fs.unlinkSync('./test/whatever-1.jpg');
   });
+
+  afterEach(function() {
+    nock.restore();
+  });
 });

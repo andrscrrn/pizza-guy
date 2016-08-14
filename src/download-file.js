@@ -1,5 +1,7 @@
 import fs from 'fs';
 import request from 'request';
+import { parse as parsePath } from 'path';
+import fse from 'co-fs-extra';
 
 /**
  * Establish TCP connection for saving an image on disk
@@ -19,6 +21,11 @@ const downloadFile = (file) => {
   return new Promise((resolve, reject) => {
     fs.stat(fileName, (err) => {
       if (err) { // File doesn't exists yet
+        const { dir } = parsePath(fileName);
+
+        // TODO: Change synchronous call.
+        fse.ensureDirSync(dir);
+
         request
           .get(`http://${host}${path}`)
           .on('error', (error) => reject(error, { fileName }))

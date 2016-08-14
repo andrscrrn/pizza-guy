@@ -1,5 +1,23 @@
 import expect from 'expect';
 import pizzaGuy from '../src/pizza-guy.js';
+import nock from 'nock';
+import path from 'path';
+
+/**
+ * Mock a set of images in a mocked server.
+ * @param {String} baseUrl
+ * @param {String[]} images
+ * @return {Nock} Nock instance.
+ */
+function mockImages(baseUrl, images) {
+  return images.reduce(function addImageToServer(server, image) {
+    const { base } = path.parse(image);
+
+    return server
+      .get(`/${base}`)
+      .replyWithFile(200, path.join(__dirname, image), { 'content-type': 'image/jpg' });
+  }, nock(baseUrl));
+}
 
 describe('pizza-guy', function() {
   describe('deliver', function() {
@@ -10,9 +28,9 @@ describe('pizza-guy', function() {
 
     it('should throw an error with arrays containing non-string objects without url property',
       function() {
-        expect(() => pizzaGuy.deliver([{}]))
-          .toThrow(/The list must contains just strings/);
-      });
+        expect(() => pizzaGuy.deliver([{}])).toThrow(/The list must contains just strings/);
+      }
+    );
 
     it('should return itself when running correctly', function() {
       expect(pizzaGuy.deliver([
@@ -24,8 +42,7 @@ describe('pizza-guy', function() {
 
   describe('onAddress', function() {
     it('should throw an error for non-strings', function() {
-      expect(() => pizzaGuy.onAddress(null))
-        .toThrow(/The address must be a string/);
+      expect(() => pizzaGuy.onAddress(null)).toThrow(/The address must be a string/);
     });
 
     it('should return itself when running with a relative path', function() {
@@ -39,8 +56,7 @@ describe('pizza-guy', function() {
 
   describe('onSuccess', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onSuccess(null))
-        .toThrow('Must be a function');
+      expect(() => pizzaGuy.onSuccess(null)).toThrow('Must be a function');
     });
 
     it('should return itself when running correctly', function() {
@@ -50,8 +66,7 @@ describe('pizza-guy', function() {
 
   describe('onError', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onError(null))
-        .toThrow('Must be a function');
+      expect(() => pizzaGuy.onError(null)).toThrow('Must be a function');
     });
 
     it('should return itself when running correctly', function() {
@@ -62,6 +77,29 @@ describe('pizza-guy', function() {
   describe('start', function() {
     it('should return undefined', function() {
       expect(pizzaGuy.deliver([]).start()).toBe(undefined);
+    });
+  });
+
+  describe('physical files', function() {
+    it('should call onComplete when all the images where downloaded', async function() {
+      // TODO: Make this better when we know how to catch the completed images event
+      this.timeout(10000);
+
+      const baseUrl = 'http://local.foo.com';
+      const images = [
+        'fixtures/images/image-1.jpg',
+        'fixtures/images/image-2.jpg',
+        'fixtures/images/image-3.jpg'
+      ];
+
+      const imagesUrls = images.map(image => `${baseUrl}/${path.parse(image).base}`);
+
+      mockImages(baseUrl, images);
+
+      pizzaGuy
+        .deliver(imagesUrls)
+        .onAddress('./_tmp/foo')
+        .start();
     });
   });
 });
