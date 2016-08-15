@@ -4,8 +4,10 @@ import invariant from 'invariant';
 
 let savePath = '';
 let filesList = [];
+
 let errorCallback = () => {};
 let successCallback = () => {};
+let completeCallback = () => {};
 
 // Not using ES6 export syntax to avoid backward compatibility problems
 module.exports = {
@@ -50,11 +52,20 @@ module.exports = {
     return this;
   },
 
+  onComplete(cb) {
+    invariant(typeof cb === 'function', 'Must be a function');
+
+    completeCallback = cb;
+
+    return this;
+  },
+
   start() {
     downloadPool({
       fileList: dataAdapter(filesList, savePath),
       onFileSuccess: successCallback,
-      onFileError: errorCallback
+      onFileError: errorCallback,
+      onComplete: completeCallback
     });
   }
 };

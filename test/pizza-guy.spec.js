@@ -2,6 +2,7 @@ import expect from 'expect';
 import pizzaGuy from '../src/pizza-guy.js';
 import nock from 'nock';
 import path from 'path';
+import fs from 'co-fs-extra';
 
 /**
  * Mock a set of images in a mocked server.
@@ -22,8 +23,7 @@ function mockImages(baseUrl, images) {
 describe('pizza-guy', function() {
   describe('deliver', function() {
     it('should throw an error when passing a non-array object', function() {
-      expect(() => pizzaGuy.deliver({}))
-        .toThrow(/The list must be an array/);
+      expect(() => pizzaGuy.deliver({})).toThrow(/The list must be an array/);
     });
 
     it('should throw an error with arrays containing non-string objects without url property',
@@ -81,10 +81,7 @@ describe('pizza-guy', function() {
   });
 
   describe('physical files', function() {
-    it('should call onComplete when all the images where downloaded', async function() {
-      // TODO: Make this better when we know how to catch the completed images event
-      this.timeout(10000);
-
+    it('should call onComplete after all the images where downloaded', function(done) {
       const baseUrl = 'http://local.foo.com';
       const images = [
         'fixtures/images/image-1.jpg',
@@ -99,6 +96,20 @@ describe('pizza-guy', function() {
       pizzaGuy
         .deliver(imagesUrls)
         .onAddress('./_tmp/foo')
+        .onComplete(function() {
+          const downloadedFiles = fs.readdirSync('./_tmp/foo');
+
+          expect(downloadedFiles).toEqual([
+            'image-1.jpg',
+            'image-2.jpg',
+            'image-3.jpg'
+          ]);
+
+          // TODO: Add physical check of files (checksum probably)
+
+          fs.removeSync('./_tmp'); // Remove the generated files
+          done();
+        })
         .start();
     });
   });
