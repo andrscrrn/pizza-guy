@@ -82,6 +82,8 @@ describe('pizza-guy', function() {
 
   describe('physical files', function() {
     it('should call onComplete after all the images where downloaded', function(done) {
+      this.timeout(4000);
+
       const baseUrl = 'http://local.foo.com';
       const images = [
         'fixtures/images/image-1.jpg',
