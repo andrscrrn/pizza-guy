@@ -23,7 +23,7 @@ export const splice = (arr, limit) => {
   return splicedArray;
 };
 
-const batchDownload = (config) => {
+async function batchDownload(config) {
   const { batches, onFileSuccess, onFileError, onComplete } = config;
 
   if (batches.length === 0) {
@@ -37,32 +37,24 @@ const batchDownload = (config) => {
   const [batch, ...remainingBatches] = batches;
   const batchLength = batch.length;
 
-  batch.forEach((file) => {
-    downloadFile(file)
-      .then((data) => {
-        onFileSuccess(data);
-        downloadedImagesInBatch += 1;
+  for (const file of batch) {
+    let data;
+    try {
+      data = await downloadFile(file);
+      onFileSuccess(data);
+    } catch (e) {
+      onFileError(e, data);
+    } finally {
+      downloadedImagesInBatch += 1;
 
-        // TODO: Remove duplicated block due absence of "finally"
-        if (downloadedImagesInBatch === batchLength) {
-          batchDownload(Object.assign({}, config, {
-            batches: remainingBatches
-          }));
-        }
-      })
-      .catch((error, data) => {
-        onFileError(error, data);
-        downloadedImagesInBatch += 1;
-
-        // TODO: Remove duplicated block due absence of "finally"
-        if (downloadedImagesInBatch === batchLength) {
-          batchDownload(Object.assign({}, config, {
-            batches: remainingBatches
-          }));
-        }
-      });
-  });
-};
+      if (downloadedImagesInBatch === batchLength) {
+        batchDownload(Object.assign({}, config, {
+          batches: remainingBatches
+        }));
+      }
+    }
+  }
+}
 
 /**
  * Download a set of files grouped in multiple bundles. Only one bundle is
