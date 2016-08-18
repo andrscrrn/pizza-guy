@@ -8,3 +8,4 @@ to-develop
 dist
 demo/downloaded-images
 .vscode
+wallaby.config.js
