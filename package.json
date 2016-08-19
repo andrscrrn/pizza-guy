@@ -81,7 +81,7 @@
     "babel-core": "6.10.4",
     "babel-preset-modern-node": "2.2.1",
     "babel-preset-stage-2": "6.11.0",
-    "co-fs-extra": "1.2.1",
+    "fs-extra-promise": "0.4.0",
     "invariant": "2.2.1",
     "request": "2.74.0"
   }

@@ -1,7 +1,36 @@
-import fs from 'fs';
 import request from 'request';
-import { parse as parsePath } from 'path';
-import fse from 'co-fs-extra';
+import path from 'path';
+import fs from 'fs-extra-promise';
+
+function downloadFileStream(filePath, fileName) {
+  return new Promise((resolve, reject) => {
+    request
+      .get(filePath)
+      .on('response', function(response) {
+        if (response.statusCode === 200) {
+          response.request
+            .pipe(fs.createWriteStream(fileName))
+            .on('error', (error) => reject(error, { fileName }))
+            .on('close', () => resolve({ fileName, isRepeated: false }));
+        } else {
+          reject({ fileName });
+        }
+      });
+  });
+}
+
+async function fileExists(filePath) {
+  try {
+    await fs.statAsync(filePath);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function createFolderForFile(fileName) {
+  return fs.ensureDirAsync(path.parse(fileName));
+}
 
 /**
  * Establish TCP connection for saving an image on disk
@@ -11,39 +40,41 @@ import fse from 'co-fs-extra';
  * @param  {String} file.path path for the request.
  * @return {Promise}
  */
-const downloadFile = (file) => {
+async function downloadFile(file) {
   const {
     fileName,
     host,
-    path
+    path: filePath
   } = file;
 
-  return new Promise((resolve, reject) => {
-    fs.stat(fileName, (err) => {
-      if (err) { // File doesn't exists yet
-        const { dir } = parsePath(fileName);
+  const fileAlreadyExists = await fileExists(fileName);
 
-        // TODO: Change synchronous call.
-        fse.ensureDirSync(dir);
+  if (fileAlreadyExists) {
+    return { fileName, isRepeated: true };
+  }
 
-        request
-          .get(`http://${host}${path}`)
-          .on('response', function(response) {
-            if (response.statusCode === 200) {
-              response.request
-                .pipe(fs.createWriteStream(fileName))
-                .on('error', (error) => reject(error, { fileName }))
-                .on('close', () => resolve({ fileName, isRepeated: false }));
-            } else {
-              reject({ fileName });
-            }
-          }
-        );
-      } else { // File is already on disk
-        resolve({ fileName, isRepeated: true });
-      }
-    });
-  });
-};
+  await createFolderForFile(fileName);
+
+  try {
+    const downloadedFile = await downloadFileStream(`http://${host}${filePath}`, fileName);
+    return downloadedFile;
+  } catch (error) {
+    return { error, fileName };
+  }
+  // downloadRawFile(`http://${host}${path}`, fileName);
+
+  // return new Promise((resolve, reject) => {
+  //   fs.stat(fileName, (err) => {
+  //     if (err) { // File doesn't exists yet
+  //       const { dir } = parsePath(fileName);
+
+  //       // TODO: Change synchronous call.
+  //       fs.ensureDirSync(dir);
+  //     } else { // File is already on disk
+  //       resolve({ fileName, isRepeated: true });
+  //     }
+  //   });
+  // });
+}
 
 export default downloadFile;
