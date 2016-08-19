@@ -1,24 +1,8 @@
 import expect from 'expect';
 import pizzaGuy from '../src/pizza-guy.js';
-import nock from 'nock';
 import path from 'path';
 import fs from 'fs-extra-promise';
-
-/**
- * Mock a set of images in a mocked server.
- * @param {String} baseUrl
- * @param {String[]} images
- * @return {Nock} Nock instance.
- */
-function mockImages(baseUrl, images) {
-  return images.reduce(function addImageToServer(server, image) {
-    const { base } = path.parse(image);
-
-    return server
-      .get(`/${base}`)
-      .replyWithFile(200, path.join(__dirname, image), { 'content-type': 'image/jpg' });
-  }, nock(baseUrl));
-}
+import { mockImages } from './helpers/mock-images';
 
 describe('pizza-guy', function() {
   describe('deliver', function() {
@@ -80,15 +64,13 @@ describe('pizza-guy', function() {
     });
   });
 
-  describe.skip('physical files', function() {
+  describe('physical files', function() {
     it('should call onComplete after all the images where downloaded', function(done) {
-      this.timeout(4000);
-
       const baseUrl = 'http://local.foo.com';
       const images = [
-        'fixtures/images/image-1.jpg',
-        'fixtures/images/image-2.jpg',
-        'fixtures/images/image-3.jpg'
+        'test/fixtures/images/image-1.jpg',
+        'test/fixtures/images/image-2.jpg',
+        'test/fixtures/images/image-3.jpg'
       ];
 
       const imagesUrls = images.map(image => `${baseUrl}/${path.parse(image).base}`);
