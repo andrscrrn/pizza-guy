@@ -8,16 +8,16 @@ const POOL_LIMIT = 6;
  *
  * splice([1, 2, 3, 4, 5], 3); // [[1, 2, 3], [4, 5]]
  *
- * @param {Array} arr
+ * @param {Array} baseArray
  * @param {Number} limit
  * @returns {Array} New array with the subgroups.
  */
-export const splice = (arr, limit) => {
+export const splice = (baseArray, limit) => {
   const splicedArray = [];
-  const baseArray = arr.slice(0);
+  const arrayClone = baseArray.slice(0);
 
-  while (baseArray.length) {
-    splicedArray.push(baseArray.splice(0, limit));
+  while (arrayClone.length) {
+    splicedArray.push(arrayClone.splice(0, limit));
   }
 
   return splicedArray;
