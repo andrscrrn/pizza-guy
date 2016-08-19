@@ -17,6 +17,6 @@ pizzaGuy
     console.log(`Downloaded: ${info.fileName}`);
   })
   .onError((info) => {
-    console.log(`Download ${info.fileName} failed`);
+    console.log(`Failed: ${info.fileName}`);
   })
   .start();

@@ -1,4 +1,4 @@
-# pizza-guy
+# [pizza-guy](https://youtu.be/1uXrXTSASK0)
 
 [![Travis](https://img.shields.io/travis/andresdavid90/pizza-guy.svg?style=flat-square)](https://travis-ci.org/andresdavid90/pizza-guy)
 [![Codecov](https://img.shields.io/codecov/c/github/andresdavid90/pizza-guy.svg?style=flat-square)](https://codecov.io/github/andresdavid90/pizza-guy)
@@ -33,7 +33,7 @@ const images = [
 ```
 or, if you want to alter the filenames on download...
 
-```
+```javascript
 const image = [
   { url: 'http://some.domain.com/file0.jpg', name: 'goat.jpg' },
   { url: 'http://some.domain.com/file1.gif', name: 'cat.gif' },
