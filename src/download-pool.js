@@ -2,38 +2,75 @@ import downloadFile from './download-file';
 
 const POOL_LIMIT = 6;
 
-export const splice = (arr, limit) => {
+/**
+ * Groups the elements in an array in subarrays defined by limit.
+ * @example
+ *
+ * splice([1, 2, 3, 4, 5], 3); // [[1, 2, 3], [4, 5]]
+ *
+ * @param {Array} baseArray
+ * @param {Number} limit
+ * @returns {Array} New array with the subgroups.
+ */
+export const splice = (baseArray, limit) => {
   const splicedArray = [];
+  const arrayClone = baseArray.slice(0);
 
-  while (arr.length) {
-    splicedArray.push(arr.splice(0, limit));
+  while (arrayClone.length) {
+    splicedArray.push(arrayClone.splice(0, limit));
   }
+
   return splicedArray;
 };
 
-const batchDownload = (arr, limit, successCb, errorCb) => { // eslint-disable-line
-  let downloadIndex = 0;
-  if (arr.length) {
-    arr
-      .shift()
-      .forEach((file) => {
-        downloadFile(file)
-          .then((data) => {
-            successCb(data);
-            downloadIndex++;
-            if (!(downloadIndex % limit)) {
-              batchDownload(arr, limit, successCb, errorCb);
-            }
-          })
-          .catch((error, data) => {
-            errorCb(error, data);
-            downloadIndex++;
-          });
-      }
-    );
-  }
-};
+async function batchDownload(config) {
+  const { batches, onFileSuccess, onFileError, onComplete } = config;
 
-export default function downloadPool(list, successCb, errorCb) {
-  batchDownload(splice(list, POOL_LIMIT), POOL_LIMIT, successCb, errorCb);
+  if (batches.length === 0) {
+    // TODO: onComplete could pass a "report" as parameter that can give more
+    // Information about the process.
+    onComplete();
+    return;
+  }
+
+  let downloadedImagesInBatch = 0;
+  const [batch, ...remainingBatches] = batches;
+  const batchLength = batch.length;
+
+  for (const file of batch) {
+    let data;
+    try {
+      data = await downloadFile(file);
+      onFileSuccess(data);
+    } catch (e) {
+      onFileError(e, data);
+    } finally {
+      downloadedImagesInBatch += 1;
+
+      if (downloadedImagesInBatch === batchLength) {
+        batchDownload(Object.assign({}, config, {
+          batches: remainingBatches
+        }));
+      }
+    }
+  }
+}
+
+/**
+ * Download a set of files grouped in multiple bundles. Only one bundle is
+ * downloaded at a time.
+ * @param {Object} config
+ * @param {String[]} config.fileList
+ * @param {Function} config.onFileSuccess
+ * @param {Function} config.onFileError
+ */
+export default function downloadPool(config) {
+  const { fileList, onFileSuccess, onFileError, onComplete } = config;
+
+  batchDownload({
+    batches: splice(fileList, POOL_LIMIT),
+    onFileSuccess,
+    onFileError,
+    onComplete
+  });
 }

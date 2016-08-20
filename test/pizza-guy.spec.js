@@ -1,11 +1,13 @@
 import expect from 'expect';
 import pizzaGuy from '../src/pizza-guy.js';
+import path from 'path';
+import fs from 'fs-extra-promise';
+import { mockImages } from './helpers/mock-images';
 
 describe('pizza-guy', function() {
   describe('deliver', function() {
     it('should throw an error when passing a non-array object', function() {
-      expect(() => pizzaGuy.deliver({}))
-        .toThrow(/The list must be an array/);
+      expect(() => pizzaGuy.deliver({})).toThrow(/The list must be an array/);
     });
 
     it('should throw an error with arrays containing non-string objects without url property',
@@ -59,6 +61,40 @@ describe('pizza-guy', function() {
   describe('start', function() {
     it('should return undefined', function() {
       expect(pizzaGuy.deliver([]).start()).toBe(undefined);
+    });
+  });
+
+  describe('physical files', function() {
+    it('should call onComplete after all the images where downloaded', function(done) {
+      const baseUrl = 'http://local.foo.com';
+      const images = [
+        'test/fixtures/images/image-1.jpg',
+        'test/fixtures/images/image-2.jpg',
+        'test/fixtures/images/image-3.jpg'
+      ];
+
+      const imagesUrls = images.map(image => `${baseUrl}/${path.parse(image).base}`);
+
+      mockImages(baseUrl, images);
+
+      pizzaGuy
+        .deliver(imagesUrls)
+        .onAddress('./_tmp/foo')
+        .onComplete(function() {
+          const downloadedFiles = fs.readdirSync('./_tmp/foo');
+
+          expect(downloadedFiles).toEqual([
+            'image-1.jpg',
+            'image-2.jpg',
+            'image-3.jpg'
+          ]);
+
+          // TODO: Add physical check of files (checksum probably)
+
+          fs.removeSync('./_tmp'); // Remove the generated files
+          done();
+        })
+        .start();
     });
   });
 });
