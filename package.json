@@ -6,11 +6,12 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
-    "test": "nyc --reporter=lcov npm run test:raw",
+    "test": "nyc --reporter=lcov --reporter=text npm run test:raw",
     "test:raw": "mocha --compilers js:babel-core/register test/*.spec.js",
     "test:watch": "npm run test:raw -- -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
+    "check-coverage": "nyc check-coverage --lines 90 --functions 80 --branches 90",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "lint": "eslint src test",
     "demo": "npm run build && node ./demo/index"
@@ -59,7 +60,7 @@
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm run test && npm run lint",
+      "pre-commit": "npm run test && npm run lint && npm run check-coverage",
       "commit-msg": "validate-commit-msg"
     },
     "validate-commit-msg": {
