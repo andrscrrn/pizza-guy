@@ -3,7 +3,7 @@ import expect from 'expect';
 import fs from 'fs-extra-promise';
 import { mockImages } from './helpers/mock-images';
 
-describe('downloadFile()', function() {
+describe('download-file', function() {
   it('should return fileName and isRepeated: true if the file already exists', async function() {
     const file = {
       fileName: './test/fixtures/images/image-1.jpg'
