@@ -64,7 +64,7 @@ describe('pizza-guy', function() {
     });
   });
 
-  describe('physical files', function() {
+  describe('end', function() {
     it('should call onComplete after all the images where downloaded', function(done) {
       const baseUrl = 'http://local.foo.com';
       const images = [
