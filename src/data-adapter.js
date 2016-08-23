@@ -15,15 +15,7 @@ const parseDirPath = (dirPath) => {
 const removeDuplicates = arr => Array.from(new Set(arr));
 
 export default function getDataAdapterOptions(data, savePath = process.cwd()) {
-  const dataWithoutDuplicates = removeDuplicates(data);
-
-  if (data.length !== dataWithoutDuplicates.length) {
-    const removedDuplicates = data.length - dataWithoutDuplicates.length;
-    console.log(`${removedDuplicates} duplicates were removed.`);
-    console.log(`${dataWithoutDuplicates.length} files to download.`);
-  }
-
-  return dataWithoutDuplicates.map((item) => {
+  return removeDuplicates(data).map((item) => {
     const itemurl = (typeof item === 'string') ? item : item.url;
     let name = '';
     if (typeof item === 'string') {
