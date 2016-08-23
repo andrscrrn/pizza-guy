@@ -40,7 +40,7 @@ describe('pizza-guy', function() {
 
   describe('onSuccess', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onSuccess(null)).toThrow('Must be a function');
+      expect(() => pizzaGuy.onSuccess(null)).toThrow('The onSuccess must be a function');
     });
 
     it('should return itself when running correctly', function() {
@@ -50,11 +50,21 @@ describe('pizza-guy', function() {
 
   describe('onError', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onError(null)).toThrow('Must be a function');
+      expect(() => pizzaGuy.onError(null)).toThrow('The onError must be a function');
     });
 
     it('should return itself when running correctly', function() {
       expect(pizzaGuy.onError(() => {})).toBe(pizzaGuy);
+    });
+  });
+
+  describe('onComplete', function() {
+    it('should throw an error for non-function values', function() {
+      expect(() => pizzaGuy.onComplete(null)).toThrow('The onComplete must be a function');
+    });
+
+    it('should return itself when running correctly', function() {
+      expect(pizzaGuy.onComplete(() => {})).toBe(pizzaGuy);
     });
   });
 

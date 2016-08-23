@@ -37,7 +37,7 @@ module.exports = {
   },
 
   onSuccess(cb) {
-    invariant(typeof cb === 'function', 'Must be a function');
+    invariant(typeof cb === 'function', 'The onSuccess must be a function');
 
     successCallback = cb;
 
@@ -45,7 +45,7 @@ module.exports = {
   },
 
   onError(cb) {
-    invariant(typeof cb === 'function', 'Must be a function');
+    invariant(typeof cb === 'function', 'The onError must be a function');
 
     errorCallback = cb;
 
@@ -53,7 +53,7 @@ module.exports = {
   },
 
   onComplete(cb) {
-    invariant(typeof cb === 'function', 'Must be a function');
+    invariant(typeof cb === 'function', 'The onComplete must be a function');
 
     completeCallback = cb;
 

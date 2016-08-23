@@ -11,7 +11,7 @@
     "test:watch": "npm run test:raw -- -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "check-coverage": "nyc check-coverage --lines 90 --functions 80 --branches 90",
+    "check-coverage": "nyc check-coverage --lines 70 --functions 70 --branches 70",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "lint": "eslint src test",
     "demo": "npm run build && node ./demo/small",
