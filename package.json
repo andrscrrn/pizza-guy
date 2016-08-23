@@ -14,7 +14,8 @@
     "check-coverage": "nyc check-coverage --lines 90 --functions 80 --branches 90",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "lint": "eslint src test",
-    "demo": "npm run build && node ./demo/index"
+    "demo": "npm run build && node ./demo/small",
+    "demo:large": "npm run build && node ./demo/large"
   },
   "repository": {
     "type": "git",
