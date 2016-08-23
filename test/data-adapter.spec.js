@@ -84,4 +84,29 @@ describe('data-adapter', function() {
       fileName: `${process.cwd()}/myfolder/image2.jpg`
     }]);
   });
+
+  it('should create an array without duplicates', function() {
+    expect(
+      dataAdapter(
+        [
+          'http://some.domain.com/image1.jpg',
+          'http://some.domain.com/image1.jpg',
+          'http://some.domain.com/image1.jpg',
+          'http://some.domain.com/image2.jpg'
+        ],
+        'myfolder'
+      )
+    ).toEqual([
+      {
+        host: 'some.domain.com',
+        path: '/image1.jpg',
+        fileName: `${process.cwd()}/myfolder/image1.jpg`
+      },
+      {
+        host: 'some.domain.com',
+        path: '/image2.jpg',
+        fileName: `${process.cwd()}/myfolder/image2.jpg`
+      }
+    ]);
+  });
 });
