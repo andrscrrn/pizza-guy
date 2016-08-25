@@ -12,7 +12,7 @@ let completeCallback = () => {};
 // Not using ES6 export syntax to avoid backward compatibility problems
 module.exports = {
   deliver(list) {
-    invariant(Array.isArray(list), 'The list must be an array');
+    invariant(Array.isArray(list), 'deliver argument must be an array');
 
     const isValidList = list.every(
         (item) => typeof item === 'string' || item.hasOwnProperty('url')
@@ -20,7 +20,7 @@ module.exports = {
 
     invariant(
       isValidList,
-      'The list must contains just strings or be objects with the url property.'
+      'deliver argument must contains just strings or objects with the url property'
     );
 
     filesList = list;
@@ -29,7 +29,7 @@ module.exports = {
   },
 
   onAddress(path) {
-    invariant(typeof path === 'string', 'The address must be a string');
+    invariant(typeof path === 'string', 'onAddress argument must be a string');
 
     savePath = path;
 
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   onSuccess(cb) {
-    invariant(typeof cb === 'function', 'The onSuccess must be a function');
+    invariant(typeof cb === 'function', 'onSuccess argument must be a function');
 
     successCallback = cb;
 
@@ -45,7 +45,7 @@ module.exports = {
   },
 
   onError(cb) {
-    invariant(typeof cb === 'function', 'The onError must be a function');
+    invariant(typeof cb === 'function', 'onError argument must be a function');
 
     errorCallback = cb;
 
@@ -53,7 +53,7 @@ module.exports = {
   },
 
   onComplete(cb) {
-    invariant(typeof cb === 'function', 'The onComplete must be a function');
+    invariant(typeof cb === 'function', 'onComplete argument must be a function');
 
     completeCallback = cb;
 

@@ -7,12 +7,14 @@ import { mockImages } from './helpers/mock-images';
 describe('pizza-guy', function() {
   describe('deliver', function() {
     it('should throw an error when passing a non-array object', function() {
-      expect(() => pizzaGuy.deliver({})).toThrow(/The list must be an array/);
+      expect(() => pizzaGuy.deliver({})).toThrow(/deliver argument must be an array/);
     });
 
     it('should throw an error with arrays containing non-string objects without url property',
       function() {
-        expect(() => pizzaGuy.deliver([{}])).toThrow(/The list must contains just strings/);
+        expect(() => pizzaGuy.deliver([{}])).toThrow(
+          /deliver argument must contains just strings or objects with the url property/
+        );
       }
     );
 
@@ -26,7 +28,7 @@ describe('pizza-guy', function() {
 
   describe('onAddress', function() {
     it('should throw an error for non-strings', function() {
-      expect(() => pizzaGuy.onAddress(null)).toThrow(/The address must be a string/);
+      expect(() => pizzaGuy.onAddress(null)).toThrow(/onAddress argument must be a string/);
     });
 
     it('should return itself when running with a relative path', function() {
@@ -40,7 +42,7 @@ describe('pizza-guy', function() {
 
   describe('onSuccess', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onSuccess(null)).toThrow('The onSuccess must be a function');
+      expect(() => pizzaGuy.onSuccess(null)).toThrow('onSuccess argument must be a function');
     });
 
     it('should return itself when running correctly', function() {
@@ -50,7 +52,7 @@ describe('pizza-guy', function() {
 
   describe('onError', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onError(null)).toThrow('The onError must be a function');
+      expect(() => pizzaGuy.onError(null)).toThrow('onError argument must be a function');
     });
 
     it('should return itself when running correctly', function() {
@@ -60,7 +62,7 @@ describe('pizza-guy', function() {
 
   describe('onComplete', function() {
     it('should throw an error for non-function values', function() {
-      expect(() => pizzaGuy.onComplete(null)).toThrow('The onComplete must be a function');
+      expect(() => pizzaGuy.onComplete(null)).toThrow('onComplete argument must be a function');
     });
 
     it('should return itself when running correctly', function() {
