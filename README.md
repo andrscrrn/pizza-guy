@@ -61,7 +61,7 @@ pizzaGuy
 ```
 
 ## Want a demo?
-You can try out this module without any hassle. Just run `npm run demo` and you're all set.
+You can try out this module without any hassle. Just run `npm run demo` and you're all set. You can also run `npm run demo:large` if you want to try it with more files.
 
 Demo files are located in `demo/index.js` and downloaded images will be located in `demo/downloaded-images`
 
