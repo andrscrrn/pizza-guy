@@ -1,12 +1,12 @@
 # [pizza-guy](https://youtu.be/1uXrXTSASK0)
 
-[![Travis](https://img.shields.io/travis/andresdavid90/pizza-guy.svg)](https://travis-ci.org/andresdavid90/pizza-guy)
-[![Codecov](https://codecov.io/gh/andresdavid90/pizza-guy/branch/master/graph/badge.svg)](https://codecov.io/gh/andresdavid90/pizza-guy)
+[![Travis](https://img.shields.io/travis/andrscrrn/pizza-guy.svg)](https://travis-ci.org/andrscrrn/pizza-guy)
+[![Codecov](https://codecov.io/gh/andrscrrn/pizza-guy/branch/master/graph/badge.svg)](https://codecov.io/gh/andrscrrn/pizza-guy)
 [![NPM](https://img.shields.io/npm/v/pizza-guy.svg)](https://www.npmjs.com/package/pizza-guy)
 [![Downloads Total](https://img.shields.io/npm/dt/pizza-guy.svg)](https://www.npmjs.com/package/pizza-guy)
 [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Semantic Released](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Join the chat at https://gitter.im/andresdavid90/pizza-guy](https://badges.gitter.im/andresdavid90/pizza-guy.svg)](https://gitter.im/andresdavid90/pizza-guy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/pizza-guy/Lobby](https://badges.gitter.im/pizza-guy/Lobby.svg)](https://gitter.im/pizza-guy/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 If you already have a big list of urls of files that you want to download but you don't know how, this is your module.
@@ -74,4 +74,4 @@ This project is opened to everyone to contribute. If you want to, please read ou
 Please use `npm run commit` instead of `git commit -m "your message"` since we're using semantic release + commitizen and we aim to have things as tidy as possible.
 
 ## Issues / bugs
-We are working once on a while in this small library. Please report an issue [here](https://github.com/andresdavid90/pizza-guy/issues) and we'll take a look as soon as we can.
+We are working once on a while in this small library. Please report an issue [here](https://github.com/andrscrrn/pizza-guy/issues) and we'll take a look as soon as we can.

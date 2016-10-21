@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andresdavid90/pizza-guy.git"
+    "url": "https://github.com/andrscrrn/pizza-guy.git"
   },
   "keywords": [
     "download",
@@ -27,12 +27,12 @@
     "deliver",
     "delivery"
   ],
-  "author": "Andrés Carreño <andresdavid90@gmail.com> (http://andrescarreno.co)",
+  "author": "Andrés Carreño <hello@andrescarreno.co> (http://andrescarreno.co)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/andresdavid90/pizza-guy/issues"
+    "url": "https://github.com/andrscrrn/pizza-guy/issues"
   },
-  "homepage": "https://github.com/andresdavid90/pizza-guy#readme",
+  "homepage": "https://github.com/andrscrrn/pizza-guy#readme",
   "devDependencies": {
     "babel-cli": "6.10.1",
     "babel-eslint": "^6.0.3",
