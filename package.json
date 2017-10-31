@@ -11,7 +11,7 @@
     "test:watch": "npm run test:raw -- -w",
     "commit": "git-cz",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "check-coverage": "nyc check-coverage --lines 95 --functions 73 --branches 94",
+    "check-coverage": "nyc check-coverage --lines 95 --functions 73 --branches 93",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "lint": "eslint src test",
     "demo": "npm run build && node ./demo/small",
@@ -74,14 +74,15 @@
         "refactor",
         "perf",
         "test",
-        "chore"
+        "chore",
+        "build"
       ],
       "warnOnFail": false
     }
   },
   "dependencies": {
     "babel-core": "6.10.4",
-    "babel-preset-modern-node": "2.2.1",
+    "babel-preset-modern-node": "^3.2.0",
     "babel-preset-stage-2": "6.11.0",
     "fs-extra-promise": "0.4.0",
     "invariant": "2.2.1",
