@@ -74,7 +74,8 @@
         "refactor",
         "perf",
         "test",
-        "chore"
+        "chore",
+        "ci"
       ],
       "warnOnFail": false
     }
