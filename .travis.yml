@@ -7,11 +7,7 @@ notifications:
   email: true
 node_js:
   - 'node'
-  - '6'
-  - '5'
-  - '4'
-before_install:
-  - npm i -g npm@^2.0.0
+  - 'lts/*'
 before_script:
   - npm prune
 script:
@@ -23,4 +19,3 @@ after_success:
 branches:
   only:
     - master
-    - develop
