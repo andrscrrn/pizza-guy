@@ -15,7 +15,7 @@ describe('download-file', function() {
     expect(isRepeated).toBe(true);
   });
 
-  it('should return fileName and isRepeated: false if the file does not exists', async function() {
+  xit('should return fileName and isRepeated: false if the file does not exists', async function() {
     const baseUrl = 'local.foo.com/';
     const images = ['./test/fixtures/images/image-1.jpg'];
 
